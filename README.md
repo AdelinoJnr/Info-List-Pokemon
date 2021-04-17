@@ -1,9 +1,5 @@
 # Pokemon-Detalhes
 
-<div align="center">
-  <img src="img/Design sem nome.gif" alt="projeto resolvido" height="720">
-</div>
-<br><br>
 
 ## Habilidades
 Projeto para testar o conhecimento sobre requisições de API
