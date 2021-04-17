@@ -14,7 +14,7 @@ header {
   background-image: url(img/fundo-pokemon.jpg);
   background-position: center;
   background-size: cover;
-  height: 120px;
+  height: 180px;
   border-bottom: 2px solid greenyellow;
 }
 
@@ -35,7 +35,7 @@ a {
 
 .title {
   color: #210b4b;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .cabecalho {

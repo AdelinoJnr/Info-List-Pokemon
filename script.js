@@ -17,6 +17,11 @@ const createElementImg = (src, className) => {
   return elemento;
 }
 
+// Busca por todos os elementos daquela class
+const buscaPorDetalhesAll = (item, className) => {
+  return item.querySelectorAll(className)
+};
+
 // Buscas para encontrar demais elementos da pagina
 const buscarPorDetalhes = (item, className) => {
   return item.querySelector(className)
@@ -42,7 +47,7 @@ const createDetalhes = async (namePokemon, element) => {
   const section = element.parentNode;
   section.appendChild(createElements('p', `Nome: ${name}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Base de Experiencia: ${base_experience}`, 'detalhes-pokemon'));
-  section.appendChild(createElements('p', `Altura: ${height} | Largura: ${weight}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Peso: ${weight}kg | Altura: ${height}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Tipos: ${typesPokemon.join(' | ')}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Habilidades: ${habilidadesPokemon.join(' | ')}`, 'detalhes-pokemon'));  
   const menosDetalhes = createElements('p', 'Menos detalhes...', 'menos-detalhes');
@@ -52,7 +57,7 @@ const createDetalhes = async (namePokemon, element) => {
 
 // Callback usada no evento de click apra menos detalhes
 const eventClickMenosDetalhes = (event) => {
-  const detalhes = document.querySelectorAll('.detalhes-pokemon');
+  const detalhes = buscaPorDetalhesAll(event.target.parentNode, '.detalhes-pokemon');
   detalhes.forEach((p) => {
     p.remove()
   })
@@ -69,11 +74,11 @@ const eventClickMenosDetalhes = (event) => {
 // Novos detalhes adicionais para o cliente, quando clickado no mais detalhes
 const painelDetalhes = (element) => {
   const img = buscarPorDetalhes(element.parentNode, '.img-pokemon')
-  element.parentNode.style.width = '450px';
-  element.parentNode.style.height = '450px';
+  element.parentNode.style.width = '500px';
+  element.parentNode.style.height = '500px';
   element.style.display = 'none'
-  img.style.width = '140px'
-  img.style.height = '140px'
+  img.style.width = '190px'
+  img.style.height = '190px'
   const namePokemon = buscaDoPokemon(element.parentNode);
   createDetalhes(namePokemon, element);
 };
