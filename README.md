@@ -14,7 +14,6 @@ Projeto para testar o conhecimento sobre requisições de API
 - :heavy_check_mark: **CSS**
   - **Display: Flex**
   - **Pagina Responsiva**
-  - **Mobile**
 - :heavy_check_mark: **Javascript**
   - **HOF**
   - **PokéAPI**
