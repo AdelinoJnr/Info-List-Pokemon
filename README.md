@@ -1,4 +1,4 @@
-# Pokemon-Detalhes
+# Info List Pokemon
 
 <br></br>
 <div align="center">
@@ -6,7 +6,7 @@
 </div>
 <br><br>
 
-## Habilidades
+## Skills
 Projeto para testar o conhecimento sobre requisições de API
 <br><br>
 
