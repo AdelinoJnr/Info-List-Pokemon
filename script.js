@@ -1,5 +1,24 @@
 /**/
 const arrayPokemons = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard","Squirtle","Wartortle","Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto","Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew","Sandslash","Nidorina","Nidoqueen","Nidorino","Nidoking","Clefairy","Clefable","Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume","Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck","Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra","Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool","Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite","Magneton","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster","Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode","Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing","Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu","Starmie","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp","Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar","Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair","Dragonite","Mewtwo","Mew"];
+const traducao = {
+  poison: 'Veneno',
+  grass: 'Planta',
+  bug: 'Inseto',
+  fire: 'Fogo',
+  water: 'Agua',
+  flying: 'Voador',
+  normal: 'Normal',
+  eletric: 'Eletrico',
+  ground: 'Terrestre',
+  fairy: 'Fada',
+  psychic: 'Psíquico',
+  fighting: 'Lutador',
+  rock: 'Rocha',
+  steel: 'aço',
+  ghost: 'Fantasma',
+  ice: 'Gelo',
+  dragon: 'Dragão',
+};
 
 // Cria demais elementos do DOM
 const createElements = (element, text, className) => {
@@ -37,18 +56,21 @@ const createDetalhes = async (namePokemon, element) => {
   const dados = await getData(namePokemon);
   const { base_experience, height, weight, types, name, abilities } = dados;
   let typesPokemon = [];
+  let habilidadesPokemon = [];
   types.forEach((tipo) => {
     typesPokemon.push(tipo.type.name);
   });
-  let habilidadesPokemon = [];
   abilities.forEach((skill) => {
     habilidadesPokemon.push(skill.ability.name);
   });;
+  const type = typesPokemon.map((hab) => {
+    return traducao[hab];
+  });
   const section = element.parentNode;
   section.appendChild(createElements('p', `Nome: ${name}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Base de Experiencia: ${base_experience}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Peso: ${weight}kg | Altura: ${height}`, 'detalhes-pokemon'));
-  section.appendChild(createElements('p', `Tipos: ${typesPokemon.join(' | ')}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Tipos: ${type.join(' | ')}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Habilidades: ${habilidadesPokemon.join(' | ')}`, 'detalhes-pokemon'));  
   const menosDetalhes = createElements('p', 'Menos detalhes...', 'menos-detalhes');
   menosDetalhes.addEventListener('click', eventClickMenosDetalhes);
