@@ -1,6 +1,7 @@
 /**/
 const arrayPokemons = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard","Squirtle","Wartortle","Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto","Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew","Sandslash","Nidorina","Nidoqueen","Nidorino","Nidoking","Clefairy","Clefable","Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume","Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck","Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra","Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool","Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite","Magneton","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster","Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode","Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing","Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu","Starmie","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp","Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar","Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair","Dragonite","Mewtwo","Mew"];
 
+// Cria demais elementos do DOM
 const createElements = (element, text, className) => {
   const elemento = document.createElement(element);
   elemento.innerText = text;
@@ -8,6 +9,7 @@ const createElements = (element, text, className) => {
   return elemento;
 };
 
+// Cria um elemento que contem img:src
 const createElementImg = (src, className) => {
   const elemento = document.createElement('img');
   elemento.className = className;
@@ -15,23 +17,18 @@ const createElementImg = (src, className) => {
   return elemento;
 }
 
-const createLinkElement = (element, className, href) => {
-  const link = document.createElement(element);
-  link.href = href;
-  link.className = className;
-  link.target = '_blank';
-  return link;
-};
-
+// Buscas para encontrar demais elementos da pagina
 const buscarPorDetalhes = (item, className) => {
   return item.querySelector(className)
 };
 
+// Busca para encontrar o nome do pokemon
 const buscaDoPokemon = (item) => {
   return item.querySelector('p.name-pokemon').innerText;
 };
 
-const createDivDetalhes = async (namePokemon, element) => {
+// Detalhes adicionando na section
+const createDetalhes = async (namePokemon, element) => {
   const dados = await getData(namePokemon);
   const { base_experience, height, weight, types, name, abilities } = dados;
   let typesPokemon = [];
@@ -53,6 +50,7 @@ const createDivDetalhes = async (namePokemon, element) => {
   section.appendChild(menosDetalhes);
 };
 
+// Callback usada no evento de click apra menos detalhes
 const eventClickMenosDetalhes = (event) => {
   const detalhes = document.querySelectorAll('.detalhes-pokemon');
   detalhes.forEach((p) => {
@@ -68,24 +66,25 @@ const eventClickMenosDetalhes = (event) => {
   event.target.parentNode.style.height = '200px';
 };
 
+// Novos detalhes adicionais para o cliente, quando clickado no mais detalhes
 const painelDetalhes = (element) => {
   const img = buscarPorDetalhes(element.parentNode, '.img-pokemon')
-  //console.log(element.parentNode)
   element.parentNode.style.width = '450px';
   element.parentNode.style.height = '450px';
   element.style.display = 'none'
   img.style.width = '140px'
   img.style.height = '140px'
   const namePokemon = buscaDoPokemon(element.parentNode);
-  createDivDetalhes(namePokemon, element);
+  createDetalhes(namePokemon, element);
 };
 
+// Callback usada no evento de click apra mais detalhes
 const eventClickMaisDetalhes = (event) => {
   const pokemon = event.target
   painelDetalhes(pokemon);
 }
 
-//
+// Retorna a section de um pokemon
 const createItemListPokemon = ({ name, sprites: { other: { dream_world } }}) => {
   const section = document.createElement('section');
   section.className = 'pokemonList';
