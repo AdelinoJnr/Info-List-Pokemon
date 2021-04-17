@@ -4,7 +4,7 @@ This project was developed with the following technologies: <br><br>
 
 - :heavy_check_mark: **HTML**
 - :heavy_check_mark: **CSS**
-  - :boom: **Bootstrap!**
+  - **Display**Flew****
 - :heavy_check_mark: **Javascript**
   - **HOF**
   - **PokéAPI**
