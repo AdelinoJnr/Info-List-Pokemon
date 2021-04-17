@@ -23,15 +23,22 @@ const createLinkElement = (element, className, href) => {
   return link;
 };
 
+const eventClick = (event) => {
+  console.log('clickei')
+}
+
 const createItemListPokemon = ({ name, types, id, sprites: { other: { dream_world } }}) => {
   const section = document.createElement('section');
   section.className = 'pokemonList';
   section.appendChild(createElements('p', name, 'name-pokemon'));
   section.appendChild(createElementImg(dream_world.front_default, 'img-pokemon'));
   section.appendChild(createElements('p', 'Mais detalhes...', 'btn-details'));
+  section.addEventListener('click', eventClick);
+  /*
   const link = createLinkElement('a', 'link-detalhes', 'https://www.youtube.com/?hl=pt&gl=BR');
   link.appendChild(section);
-  return link;
+  */
+  return section;
 };
 
 const createList = async () => {  
@@ -43,6 +50,17 @@ const createList = async () => {
   });
 };
 
+/*
+const createOptions = () => {
+  arrayPokemons.forEach((pokemon, index) => {
+    const option = document.createElement('option');
+    option.innerHTML = pokemon
+    option.value = index
+    const select = document.querySelector('.form-select');
+    select.appendChild(option);
+  });
+};
+*/
 
 const getData = async (pokemon) => {
   const response =  await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
@@ -50,6 +68,14 @@ const getData = async (pokemon) => {
   return dados;
 };
 
+const sincro = async () => {
+  try {
+    createList();
+  } catch (error) {
+    console.log('Não achei nada');
+  }
+};
+
 window.onload = function () {
-  createList();
+  sincro();
 };
