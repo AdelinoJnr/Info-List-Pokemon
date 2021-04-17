@@ -121,18 +121,6 @@ const removeLoading = () => {
   loading.remove()
 };
 
-/*
-const createOptions = () => {
-  arrayPokemons.forEach((pokemon, index) => {
-    const option = document.createElement('option');
-    option.innerHTML = pokemon
-    option.value = index
-    const select = document.querySelector('.form-select');
-    select.appendChild(option);
-  });
-};
-*/
-
 const getData = async (pokemon) => {
   const response =  await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
   const dados = response.json();
@@ -151,5 +139,5 @@ window.onload = function () {
   setTimeout(() => {
     sincro(); 
     removeLoading();
-  }, 0);
+  }, 2000);
 };
