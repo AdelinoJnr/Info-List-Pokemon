@@ -1,8 +1,7 @@
 # Pokemon-Detalhes
 
 <div align="center">
-  <img src="./assets/gifs/gif1.gif" alt="demo-web" height="470">
-  <img src="./assets/gifs/gif2.gif" alt="demo-web" height="470">
+  <img src="img/projeto.gif" alt="projeto resolvido" height="720">
 </div>
 <br><br>
 
