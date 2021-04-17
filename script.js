@@ -23,6 +23,10 @@ const createLinkElement = (element, className, href) => {
   return link;
 };
 
+const buscarPorDetalhes = (item, className) => {
+  return item.querySelector(className)
+};
+
 const buscaDoPokemon = (item) => {
   return item.querySelector('p.name-pokemon').innerText;
 };
@@ -38,47 +42,57 @@ const createDivDetalhes = async (namePokemon, element) => {
   abilities.forEach((skill) => {
     habilidadesPokemon.push(skill.ability.name);
   });;
-  const div = document.createElement('div');
-  div.className = 'content-detalhes'
-  div.appendChild(createElements('p', `Nome: ${name}`, 'name-pokemon'));
-  div.appendChild(createElements('p', `Base de Experiencia: ${base_experience}`, 'name-pokemon'));
-  div.appendChild(createElements('p', `Altura: ${height} | Largura: ${weight}`, 'name-pokemon'));
-  div.appendChild(createElements('p', `Tipos: ${typesPokemon.join(' | ')}`, 'name-pokemon'));
-  div.appendChild(createElements('p', `Habilidades: ${habilidadesPokemon.join(' | ')}`, 'name-pokemon'));  
-  element.parentNode.appendChild(div)
-  console.log(dados);
+  const section = element.parentNode;
+  section.appendChild(createElements('p', `Nome: ${name}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Base de Experiencia: ${base_experience}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Altura: ${height} | Largura: ${weight}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Tipos: ${typesPokemon.join(' | ')}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Habilidades: ${habilidadesPokemon.join(' | ')}`, 'detalhes-pokemon'));  
+  const menosDetalhes = createElements('p', 'Menos detalhes...', 'menos-detalhes');
+  menosDetalhes.addEventListener('click', eventClickMenosDetalhes);
+  section.appendChild(menosDetalhes);
+};
+
+const eventClickMenosDetalhes = (event) => {
+  const detalhes = document.querySelectorAll('.detalhes-pokemon');
+  detalhes.forEach((p) => {
+    p.remove()
+  })
+  const img = buscarPorDetalhes(event.target.parentNode, '.img-pokemon');
+  const maisDetalhes = buscarPorDetalhes(event.target.parentNode, '.btn-details')
+  maisDetalhes.style.display = 'block'
+  img.style.width = '100px';
+  img.style.height = '100px';
+  event.target.style.display = 'none'
+  event.target.parentNode.style.width = '150px';
+  event.target.parentNode.style.height = '200px';
 };
 
 const painelDetalhes = (element) => {
-  element.parentNode.style.width = '500px';
-  element.parentNode.style.height = '500px';
-  element.parentNode.style.display = 'block';
-  element.parentNode.style.padding = '20px 0 0 0px';
-  element.style.display = 'none';
-  element.parentNode.style.cursor = 'pointer';
+  const img = buscarPorDetalhes(element.parentNode, '.img-pokemon')
+  //console.log(element.parentNode)
+  element.parentNode.style.width = '450px';
+  element.parentNode.style.height = '450px';
+  element.style.display = 'none'
+  img.style.width = '140px'
+  img.style.height = '140px'
   const namePokemon = buscaDoPokemon(element.parentNode);
   createDivDetalhes(namePokemon, element);
 };
 
-const eventClick = (event) => {
+const eventClickMaisDetalhes = (event) => {
   const pokemon = event.target
-  painelDetalhes(pokemon)
-
-  /*
-  pokemon.parentNode.addEventListener('click', () => {
-    window.location = "index.html"
-  });
-  */
+  painelDetalhes(pokemon);
 }
 
 //
-const createItemListPokemon = ({ name, types, id, sprites: { other: { dream_world } }}) => {
+const createItemListPokemon = ({ name, sprites: { other: { dream_world } }}) => {
   const section = document.createElement('section');
   section.className = 'pokemonList';
   section.appendChild(createElements('p', name, 'name-pokemon'));
   section.appendChild(createElementImg(dream_world.front_default, 'img-pokemon'));
   const detalhes = createElements('p', 'Mais detalhes...', 'btn-details');
-  detalhes.addEventListener('click', eventClick);
+  detalhes.addEventListener('click', eventClickMaisDetalhes);
   section.appendChild(detalhes);
   return section;
 };

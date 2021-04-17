@@ -21,6 +21,7 @@ header {
 img {
   width: 100px;
   height: 100px;
+  margin-bottom: 5px;
 }
 
 ul {
@@ -87,30 +88,40 @@ a {
   background-color: #e2e2e2;
   margin: 10px;
   border-radius: 15%;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .pokemonList:hover {
   width: 160px;
   height: 210px;
   background-color: #a1a1a1;
-  margin: 6px;
+  margin: 5px;
 }
 
-.btn-details {
+.btn-details,
+.menos-detalhes {
   cursor: pointer;
-  color: #1a1a1a;
+  color: #310483;
   font-weight: 600;
   margin-top: 15px;
 }
 
-.btn-details:hover {
+.btn-details:hover,
+.menos-detalhes:hover {
   font-size: 1.15em;
+  color: #4306b6;
 }
 
 .name-pokemon {
-  color: #1a1a1a;
+  color: black;
+  font-size: 1.2em;
   font-weight: 600;
+  padding: 10px;
+}
+
+.detalhes-pokemon {
+  color: #1a1a1a;
+  font-weight: 500;
   font-size: 1.1em;
   margin-bottom: 15px;
 }
