@@ -8,7 +8,7 @@ const traducao = {
   water: 'Agua',
   flying: 'Voador',
   normal: 'Normal',
-  eletric: 'Eletrico',
+  electric: 'Eletrico',
   ground: 'Terrestre',
   fairy: 'Fada',
   psychic: 'Psíquico',
