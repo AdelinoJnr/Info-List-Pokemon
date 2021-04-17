@@ -64,6 +64,11 @@ a {
   opacity: 1;
 }
 
+.content-detalhes {
+  margin: 30px auto 0;
+  text-align: center;
+}
+
 .pokemons {
   display: flex;
   flex-direction: row;
@@ -76,11 +81,10 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  text-align: center;
   width: 150px;
   height: 200px;
   background-color: #e2e2e2;
-  text-align: center;
   margin: 10px;
   border-radius: 15%;
   transition: 0.5s;
@@ -89,15 +93,19 @@ a {
 .pokemonList:hover {
   width: 160px;
   height: 210px;
-  cursor: pointer;
   background-color: #a1a1a1;
   margin: 6px;
 }
 
 .btn-details {
+  cursor: pointer;
   color: #1a1a1a;
   font-weight: 600;
   margin-top: 15px;
+}
+
+.btn-details:hover {
+  font-size: 1.15em;
 }
 
 .name-pokemon {

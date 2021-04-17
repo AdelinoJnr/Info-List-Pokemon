@@ -23,24 +23,67 @@ const createLinkElement = (element, className, href) => {
   return link;
 };
 
+const buscaDoPokemon = (item) => {
+  return item.querySelector('p.name-pokemon').innerText;
+};
+
+const createDivDetalhes = async (namePokemon, element) => {
+  const dados = await getData(namePokemon);
+  const { base_experience, height, weight, types, name, abilities } = dados;
+  let typesPokemon = [];
+  types.forEach((tipo) => {
+    typesPokemon.push(tipo.type.name);
+  });
+  let habilidadesPokemon = [];
+  abilities.forEach((skill) => {
+    habilidadesPokemon.push(skill.ability.name);
+  });;
+  const div = document.createElement('div');
+  div.className = 'content-detalhes'
+  div.appendChild(createElements('p', `Nome: ${name}`, 'name-pokemon'));
+  div.appendChild(createElements('p', `Base de Experiencia: ${base_experience}`, 'name-pokemon'));
+  div.appendChild(createElements('p', `Altura: ${height} | Largura: ${weight}`, 'name-pokemon'));
+  div.appendChild(createElements('p', `Tipos: ${typesPokemon.join(' | ')}`, 'name-pokemon'));
+  div.appendChild(createElements('p', `Habilidades: ${habilidadesPokemon.join(' | ')}`, 'name-pokemon'));  
+  element.parentNode.appendChild(div)
+  console.log(dados);
+};
+
+const painelDetalhes = (element) => {
+  element.parentNode.style.width = '500px';
+  element.parentNode.style.height = '500px';
+  element.parentNode.style.display = 'block';
+  element.parentNode.style.padding = '20px 0 0 0px';
+  element.style.display = 'none';
+  element.parentNode.style.cursor = 'pointer';
+  const namePokemon = buscaDoPokemon(element.parentNode);
+  createDivDetalhes(namePokemon, element);
+};
+
 const eventClick = (event) => {
-  console.log('clickei')
+  const pokemon = event.target
+  painelDetalhes(pokemon)
+
+  /*
+  pokemon.parentNode.addEventListener('click', () => {
+    window.location = "index.html"
+  });
+  */
 }
 
+//
 const createItemListPokemon = ({ name, types, id, sprites: { other: { dream_world } }}) => {
   const section = document.createElement('section');
   section.className = 'pokemonList';
   section.appendChild(createElements('p', name, 'name-pokemon'));
   section.appendChild(createElementImg(dream_world.front_default, 'img-pokemon'));
-  section.appendChild(createElements('p', 'Mais detalhes...', 'btn-details'));
-  section.addEventListener('click', eventClick);
-  /*
-  const link = createLinkElement('a', 'link-detalhes', 'https://www.youtube.com/?hl=pt&gl=BR');
-  link.appendChild(section);
-  */
+  const detalhes = createElements('p', 'Mais detalhes...', 'btn-details');
+  detalhes.addEventListener('click', eventClick);
+  section.appendChild(detalhes);
   return section;
 };
 
+// Cria pokemons em sections e adiciona no DOM
 const createList = async () => {  
   arrayPokemons.forEach(async (pokemon) => {
     try {
@@ -54,6 +97,7 @@ const createList = async () => {
   });
 };
 
+// Remove o loading quando a busca da API for finalizada
 const removeLoading = () => {
   const loading = document.querySelector('.loading');
   loading.remove()
@@ -89,5 +133,5 @@ window.onload = function () {
   setTimeout(() => {
     sincro(); 
     removeLoading();
-  }, 1000);
+  }, 0);
 };
