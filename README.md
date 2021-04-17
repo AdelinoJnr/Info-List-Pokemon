@@ -1,7 +1,7 @@
 # Pokemon-Detalhes
 
 ## Previus do Porjeto
-
+<br></br>
 <div align="center">
   <img src="img/Design sem nome.gif" alt="projeto resolvido" height="580">
 </div>
