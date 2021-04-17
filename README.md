@@ -1,6 +1,6 @@
 # Pokemon-Detalhes
-## :rocket: Technologies
-Projeto para testar requisições de API
+## Habilidades
+Projeto para testar o conhecimento sobre requisições de API
 <br><br>
 
 - :heavy_check_mark: **HTML**
