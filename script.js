@@ -16,7 +16,7 @@ const traducao = {
   psychic: 'Psíquico',
   fighting: 'Lutador',
   rock: 'Rocha',
-  steel: 'aço',
+  steel: 'Aço',
   ghost: 'Fantasma',
   ice: 'Gelo',
   dragon: 'Dragão',
@@ -56,24 +56,26 @@ const buscaDoPokemon = (item) => {
 // Detalhes adicionando na section
 const createDetalhes = async (namePokemon, element) => {
   const dados = await getData(namePokemon);
-  const { base_experience, height, weight, types, name, abilities } = dados;
+  const { base_experience, height, weight, types, name, abilities, stats } = dados;
   let typesPokemon = [];
   let habilidadesPokemon = [];
-  types.forEach((tipo) => {
-    typesPokemon.push(tipo.type.name);
-  });
-  abilities.forEach((skill) => {
-    habilidadesPokemon.push(skill.ability.name);
-  });;
+  let status = [];
+  stats.forEach((e) => status.push(e.base_stat));
+  types.forEach((tipo) => typesPokemon.push(tipo.type.name));
+  abilities.forEach((skill) => habilidadesPokemon.push(skill.ability.name));
   const type = typesPokemon.map((hab) => {
     return traducao[hab];
   });
   const section = element.parentNode;
-  section.appendChild(createElements('p', `Nome: ${name}`, 'detalhes-pokemon'));
-  section.appendChild(createElements('p', `Base de Experiencia: ${base_experience}`, 'detalhes-pokemon'));
+  // section.appendChild(createElements('p', `Nome: ${name}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Peso: ${weight}kg | Altura: ${height}`, 'detalhes-pokemon'));
   section.appendChild(createElements('p', `Tipos: ${type.join(' | ')}`, 'detalhes-pokemon'));
-  section.appendChild(createElements('p', `Habilidades: ${habilidadesPokemon.join(' | ')}`, 'detalhes-pokemon'));  
+  section.appendChild(createElements('p', `Habilidades: ${habilidadesPokemon.join(' | ')}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Base de Experiencia: ${base_experience}`, 'detalhes-pokemon'));
+  section.appendChild(createElements('p', `Status Básicos:
+    HP: ${status[0]} | ATK: ${status[1]} | DEF: ${status[2]}
+    ATK-MAG: ${status[3]} | DEF-MAG ${status[4]} | SPEED: ${status[5]}`, 'detalhes-pokemon'));
+
   const menosDetalhes = createElements('p', 'Menos detalhes...', 'menos-detalhes');
   menosDetalhes.addEventListener('click', eventClickMenosDetalhes);
   section.appendChild(menosDetalhes);
@@ -101,8 +103,8 @@ const painelDetalhes = (element) => {
   element.parentNode.style.width = '500px';
   element.parentNode.style.height = '500px';
   element.style.display = 'none'
-  img.style.width = '190px'
-  img.style.height = '190px'
+  img.style.width = '170px'
+  img.style.height = '170px'
   const namePokemon = buscaDoPokemon(element.parentNode);
   createDetalhes(namePokemon, element);
 };
@@ -145,6 +147,7 @@ const removeLoading = () => {
   loading.remove()
 };
 
+// Bucas de datos na API
 const getData = async (pokemon) => {
   const response =  await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
   const dados = response.json();
